@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modelo de Inversión</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h2>Modelo de Inversión con Matrices</h2>
+        <form method="post">
+            <input type="number" name="capital" placeholder="Ingrese su capital" required>
+            <button type="submit">Calcular</button>
+        </form>
+        {% if resultado %}
+            {% if resultado.error %}
+                <p class="error">{{ resultado.error }}</p>
+            {% else %}
+                <h3>Distribución de Inversión</h3>
+                <table>
+                    <tr>
+                        <th>Activo</th>
+                        <th>Inversión</th>
+                        <th>Porcentaje</th>
+                    </tr>
+                    {% for inv in resultado.inversiones %}
+                    <tr>
+                        <td>{{ inv[0] }}</td>
+                        <td>${{ inv[1] }}</td>
+                        <td>{{ inv[2] }}%</td>
+                    </tr>
+                    {% endfor %}
+                </table>
+                <h3>Rendimiento Esperado: {{ resultado.rendimiento_total }}% anual</h3>
+            {% endif %}
+        {% endif %}
+    </div>
+</body>
+</html>
